@@ -1,10 +1,5 @@
 ## 安装
 
-### 浏览器环境
-```html
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
-```
-
 ### 通过 NPM
 ```shell
 npm instll @xuanyu/storage --save
