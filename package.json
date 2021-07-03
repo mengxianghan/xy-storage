@@ -1,6 +1,6 @@
 {
-  "name": "@xuanyu/storage",
-  "version": "1.0.0",
+  "name": "xy-storage",
+  "version": "2.0.0",
   "description": "本地缓存解决方案",
   "browser": "dist/index.umd.min.js",
   "module": "dist/index.js",

@@ -2,10 +2,10 @@
 
 ### 通过 NPM
 ```shell
-npm instll @xuanyu/storage --save
+npm instll xy-storage --save
 ```
 ```javascript
-import Storage from '@xuanyu/storage'
+import Storage from 'xy-storage'
 ```
 
 ## 使用
