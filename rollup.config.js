@@ -7,6 +7,10 @@ export default {
     input: 'src/index.js',
     output: [
         {
+            file: 'dist/index.js',
+            format: 'esm'
+        },
+        {
             file: 'dist/index.umd.js',
             format: 'umd',
             name: 'Storage',
@@ -15,16 +19,8 @@ export default {
             }
         },
         {
-            file: 'dist/index.js',
-            format: 'iife',
-            name: 'Storage',
-            globals: {
-                'js-cookie': 'Cookies'
-            }
-        },
-        {
-            file: 'dist/index.min.js',
-            format: 'iife',
+            file: 'dist/index.umd.min.js',
+            format: 'umd',
             name: 'Storage',
             globals: {
                 'js-cookie': 'Cookies'

@@ -2,10 +2,8 @@
   "name": "@xuanyu/storage",
   "version": "1.0.0",
   "description": "本地缓存解决方案",
-  "main": "dist/index.js",
-  "exports": {
-    "default": "dist/index.umd.js"
-  },
+  "browser": "dist/index.umd.min.js",
+  "module": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
