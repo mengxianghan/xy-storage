@@ -1,15 +1,20 @@
 ## 安装
 
-### 通过 NPM
+### CDN
+```html
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@{version}/src/js.cookie.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xy-storage@{version}/dist/index.umd.min.js"></script>
+```
+
+### NPM
 ```shell
 npm instll xy-storage --save
-```
-```javascript
-import Storage from 'xy-storage'
 ```
 
 ## 使用
 ```javascript
+import Storage from 'xy-storage'
+
 const options = {
     namespace: 'my_'
 }
