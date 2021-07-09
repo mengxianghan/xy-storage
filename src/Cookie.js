@@ -23,7 +23,7 @@ export default class Cookie extends Interface {
      */
     get(name, def = null) {
         const value = this.storage.get(this.options.namespace + name)
-        return (value !== '' && typeof value !== 'undefined') ? JSON.parse(value)?.value : def
+        return (value !== '' && typeof value !== 'undefined') ? (JSON.parse(value)?.value ?? def) : def
     }
 
     /**

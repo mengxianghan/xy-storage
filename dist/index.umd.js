@@ -209,11 +209,11 @@
     }, {
       key: "get",
       value: function get(name) {
-        var _JSON$parse;
+        var _JSON$parse$value, _JSON$parse;
 
         var def = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
         var value = this.storage.get(this.options.namespace + name);
-        return value !== '' && typeof value !== 'undefined' ? (_JSON$parse = JSON.parse(value)) === null || _JSON$parse === void 0 ? void 0 : _JSON$parse.value : def;
+        return value !== '' && typeof value !== 'undefined' ? (_JSON$parse$value = (_JSON$parse = JSON.parse(value)) === null || _JSON$parse === void 0 ? void 0 : _JSON$parse.value) !== null && _JSON$parse$value !== void 0 ? _JSON$parse$value : def : def;
       }
       /**
        * Remove
