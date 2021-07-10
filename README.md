@@ -40,22 +40,16 @@ store.cookie.clear()
 ```
 
 ## API
-
-namespace：命名空间，添加到 name 前，防止多项目储存之冲突
-
-name: 名称，适用范围：local，session，cookie
-
-value: 储存内容，支持string，object，boolean，适用范围：local，session，cookie
-
-default: 未获取到值时的返回值，默认：null，适用范围：local，session，cookie
-
-expires: 有效期，适用范围：local，cookie
-
-path: 储存路径，适用范围：cookie
-
-domain: 域名，适用范围：cookie
-
-secure: 是否需要安全协议，默认：false【true=是，false=否】，适用范围：cookie
+| 名称 | 必填 | 说明 |
+|:----|:----|:----|
+| namespace | 否 | 命名空间，添加到 name 前，防止多项目储存之冲突 |
+| name | 否 | 名称，适用范围：local，session，cookie |
+| value | 否 | 储存内容，支持string，object，boolean，适用范围：local，session，cookie |
+| default | 否 | 未获取到值时的返回值，默认：null，适用范围：local，session，cookie |
+| expires | 否 | 有效期，适用范围：local，cookie |
+| path | 否 | 储存路径，适用范围：cookie |
+| domain | 否 | 域名，适用范围：cookie |
+| secure | 否 | 是否需要安全协议，默认：false【true=是，false=否】，适用范围：cookie |
 
 ## 依赖
 [js-cookie](https://www.npmjs.com/package/js-cookie)
