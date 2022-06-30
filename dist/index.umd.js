@@ -2,26 +2,36 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('js-cookie')) :
   typeof define === 'function' && define.amd ? define(['js-cookie'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Storage = factory(global.Cookies));
-}(this, (function (Cookies) { 'use strict';
+})(this, (function (Cookies) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var Cookies__default = /*#__PURE__*/_interopDefaultLegacy(Cookies);
 
-  function _typeof(obj) {
-    "@babel/helpers - typeof";
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
 
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function (obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      enumerableOnly && (symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      })), keys.push.apply(keys, symbols);
     }
 
-    return _typeof(obj);
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = null != arguments[i] ? arguments[i] : {};
+      i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+
+    return target;
   }
 
   function _classCallCheck(instance, Constructor) {
@@ -43,371 +53,354 @@
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
+    Object.defineProperty(Constructor, "prototype", {
+      writable: false
+    });
     return Constructor;
   }
 
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
     }
 
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true
-      }
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
+    return obj;
   }
 
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
   }
 
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
   }
 
-  function _isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
+  function _iterableToArrayLimit(arr, i) {
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+
+    var _s, _e;
 
     try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
 
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _possibleConstructorReturn(self, call) {
-    if (call && (typeof call === "object" || typeof call === "function")) {
-      return call;
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
     }
 
-    return _assertThisInitialized(self);
+    return _arr;
   }
 
-  function _createSuper(Derived) {
-    var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
 
-    return function _createSuperInternal() {
-      var Super = _getPrototypeOf(Derived),
-          result;
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
 
-      if (hasNativeReflectConstruct) {
-        var NewTarget = _getPrototypeOf(this).constructor;
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
 
-        result = Reflect.construct(Super, arguments, NewTarget);
-      } else {
-        result = Super.apply(this, arguments);
+    return arr2;
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _classPrivateFieldGet(receiver, privateMap) {
+    var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get");
+
+    return _classApplyDescriptorGet(receiver, descriptor);
+  }
+
+  function _classPrivateFieldSet(receiver, privateMap, value) {
+    var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set");
+
+    _classApplyDescriptorSet(receiver, descriptor, value);
+
+    return value;
+  }
+
+  function _classExtractFieldDescriptor(receiver, privateMap, action) {
+    if (!privateMap.has(receiver)) {
+      throw new TypeError("attempted to " + action + " private field on non-instance");
+    }
+
+    return privateMap.get(receiver);
+  }
+
+  function _classApplyDescriptorGet(receiver, descriptor) {
+    if (descriptor.get) {
+      return descriptor.get.call(receiver);
+    }
+
+    return descriptor.value;
+  }
+
+  function _classApplyDescriptorSet(receiver, descriptor, value) {
+    if (descriptor.set) {
+      descriptor.set.call(receiver, value);
+    } else {
+      if (!descriptor.writable) {
+        throw new TypeError("attempted to set read only private field");
       }
 
-      return _possibleConstructorReturn(this, result);
-    };
+      descriptor.value = value;
+    }
   }
 
-  var Interface = /*#__PURE__*/function () {
-    function Interface(options) {
-      _classCallCheck(this, Interface);
+  function _classPrivateMethodGet(receiver, privateSet, fn) {
+    if (!privateSet.has(receiver)) {
+      throw new TypeError("attempted to get private field on non-instance");
+    }
 
-      this.options = Object.assign({}, {
-        namespace: '',
-        storage: 'local'
-      }, options);
-      Object.defineProperty(this, 'length', {
-        get: function get() {
-          return Object.keys(this.storage.get()).length;
-        }
+    return fn;
+  }
+
+  function _checkPrivateRedeclaration(obj, privateCollection) {
+    if (privateCollection.has(obj)) {
+      throw new TypeError("Cannot initialize the same private elements twice on an object");
+    }
+  }
+
+  function _classPrivateFieldInitSpec(obj, privateMap, value) {
+    _checkPrivateRedeclaration(obj, privateMap);
+
+    privateMap.set(obj, value);
+  }
+
+  function _classPrivateMethodInitSpec(obj, privateSet) {
+    _checkPrivateRedeclaration(obj, privateSet);
+
+    privateSet.add(obj);
+  }
+
+  /**
+   * 是否数字
+   * @param {*} value
+   * @returns
+   */
+  var isNumber = function isNumber(value) {
+    return '[object Number]' === Object.prototype.toString.call(value);
+  };
+  /**
+   * 是否日期对象
+   * @param {*} value
+   * @returns
+   */
+
+  var isDate = function isDate(value) {
+    return '[object Date]' === Object.prototype.toString.call(value);
+  };
+  /**
+   * 是否 cookie
+   * @param {*} value
+   * @returns
+   */
+
+  var isCookie = function isCookie(value) {
+    return 'cookie' === value;
+  };
+
+  var _storage = /*#__PURE__*/new WeakMap();
+
+  var _opts = /*#__PURE__*/new WeakMap();
+
+  var _getStorage = /*#__PURE__*/new WeakSet();
+
+  var _getKey = /*#__PURE__*/new WeakSet();
+
+  var Storage = /*#__PURE__*/function () {
+    function Storage(options) {
+      _classCallCheck(this, Storage);
+
+      _classPrivateMethodInitSpec(this, _getKey);
+
+      _classPrivateMethodInitSpec(this, _getStorage);
+
+      _classPrivateFieldInitSpec(this, _storage, {
+        writable: true,
+        value: void 0
       });
-      var storage = null;
 
-      switch (this.options.storage) {
-        case 'local':
-          storage = 'localStorage' in window ? window.localStorage : null;
-          break;
+      _classPrivateFieldInitSpec(this, _opts, {
+        writable: true,
+        value: void 0
+      });
 
-        case 'session':
-          storage = 'sessionStorage' in window ? window.sessionStorage : null;
-          break;
+      _classPrivateFieldSet(this, _opts, _objectSpread2({
+        name: 'local',
+        namespace: '',
+        attrs: null
+      }, options));
 
-        case 'cookie':
-          storage = Cookies__default['default'];
-      }
-
-      this.storage = storage;
+      _classPrivateFieldSet(this, _storage, _classPrivateMethodGet(this, _getStorage, _getStorage2).call(this, _classPrivateFieldGet(this, _opts).name));
     }
 
-    _createClass(Interface, [{
+    _createClass(Storage, [{
       key: "set",
-      value: function set() {}
-    }, {
-      key: "get",
-      value: function get() {}
-    }, {
-      key: "remove",
-      value: function remove() {}
-    }, {
-      key: "clear",
-      value: function clear() {}
-    }]);
+      value: function set(key, value) {
+        var _classPrivateFieldGet2, _classPrivateFieldGet3, _attrs;
 
-    return Interface;
-  }();
-
-  var Cookie = /*#__PURE__*/function (_Interface) {
-    _inherits(Cookie, _Interface);
-
-    var _super = _createSuper(Cookie);
-
-    function Cookie(options) {
-      _classCallCheck(this, Cookie);
-
-      return _super.call(this, options);
-    }
-    /**
-     * Set
-     * @param {string} name
-     * @param {*} value
-     * @param {object} attrs
-     */
-
-
-    _createClass(Cookie, [{
-      key: "set",
-      value: function set(name, value) {
         var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-        this.storage.set(this.options.namespace + name, JSON.stringify({
-          value: value
-        }), attrs);
-      }
-      /**
-       * Get
-       * @param {string} name
-       * @param {*} def 默认为空，如果没有设置名称则返回
-       * @return {null|*}
-       */
+        attrs = _objectSpread2(_objectSpread2({}, (_classPrivateFieldGet2 = (_classPrivateFieldGet3 = _classPrivateFieldGet(this, _opts)) === null || _classPrivateFieldGet3 === void 0 ? void 0 : _classPrivateFieldGet3.attrs) !== null && _classPrivateFieldGet2 !== void 0 ? _classPrivateFieldGet2 : {}), (_attrs = attrs) !== null && _attrs !== void 0 ? _attrs : {});
 
-    }, {
-      key: "get",
-      value: function get(name) {
-        var _JSON$parse$value, _JSON$parse;
+        if (isCookie(_classPrivateFieldGet(this, _opts).name)) {
+          _classPrivateFieldGet(this, _storage).set(_classPrivateMethodGet(this, _getKey, _getKey2).call(this, key), JSON.stringify({
+            value: value
+          }), attrs);
+        } else {
+          var _attrs2 = attrs,
+              expires = _attrs2.expires;
+          var date = null;
+          var exp = null;
 
-        var def = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-        var value = this.storage.get(this.options.namespace + name);
-        return value !== '' && typeof value !== 'undefined' ? (_JSON$parse$value = (_JSON$parse = JSON.parse(value)) === null || _JSON$parse === void 0 ? void 0 : _JSON$parse.value) !== null && _JSON$parse$value !== void 0 ? _JSON$parse$value : def : def;
-      }
-      /**
-       * Remove
-       * @param {string} name
-       * @param {object} attrs
-       * @return {*}
-       */
+          if (expires) {
+            // 有效期为数字
+            if (isNumber(expires)) {
+              date = new Date();
+              date.setDate(date.getTime() + expires);
+              exp = new Date(date);
+            } // 有效期为日期对象
 
-    }, {
-      key: "remove",
-      value: function remove(name) {
-        var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-        return this.storage.remove(this.options.namespace + name, attrs);
-      }
-      /**
-       * Clear
-       * @param {object} attrs
-       */
 
-    }, {
-      key: "clear",
-      value: function clear() {
-        var attrs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-        if (this.length === 0) {
-          return;
-        }
-
-        var removedKeys = [];
-
-        for (var i = 0; i < this.length; i++) {
-          var key = Object.keys(this.storage.get())[i];
-          var regexp = new RegExp("^".concat(this.options.namespace, ".+"), 'i');
-
-          if (regexp.test(key) === false) {
-            continue;
+            if (isDate(expires)) {
+              exp = expires;
+            }
           }
 
-          removedKeys.push(key);
-        }
+          value = JSON.stringify({
+            value: value,
+            expires: exp
+          });
 
-        for (var _key in removedKeys) {
-          this.storage.remove(removedKeys[_key], attrs);
+          _classPrivateFieldGet(this, _storage).setItem(_classPrivateMethodGet(this, _getKey, _getKey2).call(this, key), value);
         }
       }
-    }]);
-
-    return Cookie;
-  }(Interface);
-
-  var WebStorage = /*#__PURE__*/function (_Interface) {
-    _inherits(WebStorage, _Interface);
-
-    var _super = _createSuper(WebStorage);
-
-    function WebStorage(options) {
-      _classCallCheck(this, WebStorage);
-
-      return _super.call(this, options);
-    }
-    /**
-     * Set
-     * @param {string} name
-     * @param {*} value
-     * @param {object} attrs
-     * {
-     *     @param {number | date} expires 过期时间
-     * }
-     */
-
-
-    _createClass(WebStorage, [{
-      key: "set",
-      value: function set(name, value) {
-        var attrs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-        var _ref = attrs || {},
-            expires = _ref.expires;
-
-        var dateTime = null;
-
-        if (expires) {
-          // 数字
-          if (typeof expires === 'number') {
-            dateTime = new Date();
-            dateTime.setDate(dateTime.getDate() + expires);
-            dateTime = new Date(dateTime);
-          } // 时间对象
-
-
-          if (_typeof(expires) === 'object') {
-            dateTime = expires;
-          }
-        }
-
-        var stringifyValue = JSON.stringify({
-          value: value,
-          expires: dateTime || null
-        });
-        this.storage.setItem(this.options.namespace + name, stringifyValue);
-      }
-      /**
-       * Get
-       * @param {string} name
-       * @param {*} def 默认为空，如果没有设置名称则返回
-       * @return {null|*}
-       */
-
     }, {
       key: "get",
-      value: function get(name) {
+      value: function get(key) {
         var def = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-        var item = this.storage.getItem(this.options.namespace + name);
+        var data;
 
-        if (item !== null) {
-          try {
-            var data = JSON.parse(item);
+        if (isCookie(_classPrivateFieldGet(this, _opts).name)) {
+          data = _classPrivateFieldGet(this, _storage).get(_classPrivateMethodGet(this, _getKey, _getKey2).call(this, key));
 
-            if (data.expires === null) {
-              return data.value;
-            }
+          if ('' !== data && 'undefined' !== typeof data) {
+            var _JSON$parse$value, _JSON$parse;
 
-            if (new Date(data.expires).getTime() >= new Date().getTime()) {
-              return data.value;
-            }
-
-            this.remove(name);
-          } catch (err) {
+            return (_JSON$parse$value = (_JSON$parse = JSON.parse(data)) === null || _JSON$parse === void 0 ? void 0 : _JSON$parse.value) !== null && _JSON$parse$value !== void 0 ? _JSON$parse$value : def;
+          } else {
             return def;
           }
+        } else {
+          var _data, _data2;
+
+          data = JSON.parse(_classPrivateFieldGet(this, _storage).getItem(_classPrivateMethodGet(this, _getKey, _getKey2).call(this, key)) || '{}'); // 永久有效
+
+          if (null === ((_data = data) === null || _data === void 0 ? void 0 : _data.expires) || new Date((_data2 = data) === null || _data2 === void 0 ? void 0 : _data2.expires).getTime() >= new Date().getTime()) {
+            var _data3;
+
+            return (_data3 = data) === null || _data3 === void 0 ? void 0 : _data3.value;
+          } // 已失效，执行清理
+
+
+          this.remove(key); // 返回默认值
+
+          return def;
         }
-
-        return def;
       }
-      /**
-       * Remove
-       * @param name
-       * @return {*}
-       */
-
     }, {
       key: "remove",
-      value: function remove(name) {
-        return this.storage.removeItem(this.options.namespace + name);
-      }
-      /**
-       * clear
-       */
+      value: function remove(key) {
+        var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
+        if (isCookie(_classPrivateFieldGet(this, _opts).name)) {
+          var _classPrivateFieldGet4, _classPrivateFieldGet5;
+
+          return _classPrivateFieldGet(this, _storage).remove(_classPrivateMethodGet(this, _getKey, _getKey2).call(this, key), _objectSpread2(_objectSpread2({}, (_classPrivateFieldGet4 = (_classPrivateFieldGet5 = _classPrivateFieldGet(this, _opts)) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.attrs) !== null && _classPrivateFieldGet4 !== void 0 ? _classPrivateFieldGet4 : {}), attrs !== null && attrs !== void 0 ? attrs : {}));
+        } else {
+          return _classPrivateFieldGet(this, _storage).removeItem(_classPrivateMethodGet(this, _getKey, _getKey2).call(this, key));
+        }
+      }
     }, {
       key: "clear",
       value: function clear() {
-        if (this.length === 0) {
+        var _classPrivateFieldGet6;
+
+        if (isCookie(_classPrivateFieldGet(this, _opts).name)) {
+          console.error('Cookies do not support clear');
           return;
         }
 
-        var removedKeys = [];
+        var len = (_classPrivateFieldGet6 = _classPrivateFieldGet(this, _storage).length) !== null && _classPrivateFieldGet6 !== void 0 ? _classPrivateFieldGet6 : 0;
+        if (len === 0) return;
+        var keys = [];
 
-        for (var i = 0; i < this.length; i++) {
-          var key = this.storage.key(i);
-          var regexp = new RegExp("^".concat(this.options.namespace, ".+"), 'i');
+        for (var i = 0; i < len; i++) {
+          var name = _classPrivateFieldGet(this, _storage).key(i);
 
-          if (regexp.test(key) === false) {
+          var regexp = new RegExp("^".concat(_classPrivateFieldGet(this, _opts).namespace, "(.+)"), 'i');
+
+          if (regexp.test(name) === false) {
             continue;
           }
 
-          removedKeys.push(key);
+          var _name$match = name.match(regexp),
+              _name$match2 = _slicedToArray(_name$match, 2);
+              _name$match2[0];
+              var key = _name$match2[1];
+
+          keys.push(key);
         }
 
-        for (var _key in removedKeys) {
-          this.storage.removeItem(removedKeys[_key]);
+        for (var _key in keys) {
+          this.remove(keys[_key]);
         }
       }
     }]);
 
-    return WebStorage;
-  }(Interface);
+    return Storage;
+  }();
 
-  var Storage = function Storage() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  function _getStorage2(name) {
+    var storages = new Map();
+    storages.set('local', localStorage);
+    storages.set('session', sessionStorage);
+    storages.set('cookie', Cookies__default["default"]);
+    return storages.get(name);
+  }
 
-    _classCallCheck(this, Storage);
-
-    this.local = new WebStorage(Object.assign({}, options, {
-      storage: 'local'
-    }));
-    this.session = new WebStorage(Object.assign({}, options, {
-      storage: 'session'
-    }));
-    this.cookie = new Cookie(Object.assign({}, options, {
-      storage: 'cookie'
-    }));
-  };
+  function _getKey2(key) {
+    return "".concat(_classPrivateFieldGet(this, _opts).namespace).concat(key);
+  }
 
   return Storage;
 
-})));
+}));

@@ -1,45 +1,50 @@
-import resolve from 'rollup-plugin-node-resolve'
-import {terser} from 'rollup-plugin-terser'
+import { terser } from 'rollup-plugin-terser'
+
 import babel from '@rollup/plugin-babel'
-import clear from 'rollup-plugin-clear'
+import cleaner from 'rollup-plugin-cleaner'
 
 export default {
-    input: 'src/index.js',
+    input: 'src/main.js',
+    banner: '/* version: 3.0.0 */',
     output: [
         {
-            file: 'dist/index.js',
-            format: 'esm'
+            file: 'dist/index.esm.js',
+            format: 'esm',
+        },
+        {
+            file: 'dist/index.esm.min.js',
+            format: 'esm',
+            plugins: [terser()],
         },
         {
             file: 'dist/index.umd.js',
             format: 'umd',
             name: 'Storage',
             globals: {
-                'js-cookie': 'Cookies'
-            }
+                'js-cookie': 'Cookies',
+            },
         },
         {
             file: 'dist/index.umd.min.js',
             format: 'umd',
             name: 'Storage',
             globals: {
-                'js-cookie': 'Cookies'
+                'js-cookie': 'Cookies',
             },
-            plugins: [
-                terser()
-            ]
-        }
+            plugins: [terser()],
+        },
     ],
     plugins: [
-        resolve(),
         babel({
             babelHelpers: 'bundled',
-            exclude: 'node_modules/**'
+            exclude: 'node_modules/**',
         }),
-        clear({
+        cleaner({
             targets: ['dist'],
-            watch: true
-        })
+        }),
     ],
-    external: ['js-cookie']
+    external: ['js-cookie'],
+    watch: {
+        include: 'src/**',
+    },
 }
