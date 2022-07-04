@@ -5,7 +5,6 @@ import cleaner from 'rollup-plugin-cleaner'
 
 export default {
     input: 'src/main.js',
-    banner: '/* version: 3.0.0 */',
     output: [
         {
             file: 'dist/index.esm.js',
