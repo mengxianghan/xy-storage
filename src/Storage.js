@@ -31,7 +31,7 @@ export default class Storage {
                 // 有效期为数字
                 if (isNumber(expires)) {
                     date = new Date()
-                    date.setDate(date.getTime() + expires)
+                    date.setDate(date.getDate() + expires)
                     exp = new Date(date)
                 }
                 // 有效期为日期对象
@@ -39,6 +39,8 @@ export default class Storage {
                     exp = expires
                 }
             }
+
+            console.log(`${this.#opts.name} exp`, exp)
 
             value = JSON.stringify({
                 value,

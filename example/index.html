@@ -2,83 +2,72 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <title>example</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>example</title>
 </head>
 
 <body>
-    <input type="text"
-           name="value"
-           placeholder="key"
-           id="inputKey">
-    <input type="text"
-           name="value"
-           placeholder="value"
-           id="inputValue">
-    <button id="setBtn">设置</button>
-    <button id="getBtn">获取</button>
-    <button id="clearBtn">清理</button>
+  <input type="text" name="value" placeholder="key" id="inputKey">
+  <input type="text" name="value" placeholder="value" id="inputValue">
+  <button id="setBtn">设置</button>
+  <button id="getBtn">获取</button>
+  <button id="clearBtn">清理</button>
 
 
-    <script src="../node_modules/js-cookie/dist/js.cookie.min.js"></script>
-    <script src="../dist/index.umd.js"></script>
-    <script>
-        try {
-            const localStore = new Storage({
-                name: 'local',
-                namespace: 'local_',
-                attrs: {
-                    expires: 3
-                }
-            })
-
-            const sessionStore = new Storage({
-                name: 'session',
-                namespace: 'session_'
-            })
-
-            const cookieStore = new Storage({
-                name: 'cookie',
-                namespace: 'cookie_',
-                attrs: {
-                    path: '',
-                    domain: '',
-                    expires: 3
-                }
-            })
-
-            const inputKey = document.getElementById('inputKey')
-            const inputValue = document.getElementById('inputValue')
-            const setBtn = document.getElementById('setBtn')
-            const getBtn = document.getElementById('getBtn')
-            const clearBtn = document.getElementById('clearBtn')
-
-            setBtn.addEventListener('click', function () {
-                localStore.set(inputKey.value, inputValue.value)
-                sessionStore.set(inputKey.value, inputValue.value)
-                cookieStore.set(inputKey.value, inputValue.value)
-                console.log(`${inputKey.value} 设置成功`)
-            })
-
-            getBtn.addEventListener('click', function () {
-                console.log('local:', localStore.get(inputKey.value))
-                console.log('session:', sessionStore.get(inputKey.value))
-                console.log('cookie:', cookieStore.get(inputKey.value))
-            })
-
-            clearBtn.addEventListener('click', function () {
-                localStore.clear()
-                sessionStore.clear()
-            })
-        } catch (error) {
-            console.error(error)
+  <script src="../node_modules/js-cookie/dist/js.cookie.min.js"></script>
+  <script src="../dist/index.umd.js"></script>
+  <script>
+    try {
+      const localStore = new Storage({
+        name: 'local',
+        namespace: 'local_',
+        attrs: {
+          expires: 3
         }
+      })
 
-    </script>
+      const sessionStore = new Storage({
+        name: 'session',
+        namespace: 'session_'
+      })
+
+      const cookieStore = new Storage({
+        name: 'cookie',
+        namespace: 'cookie_',
+        attrs: {
+          expires: 3
+        }
+      })
+
+      const inputKey = document.getElementById('inputKey')
+      const inputValue = document.getElementById('inputValue')
+      const setBtn = document.getElementById('setBtn')
+      const getBtn = document.getElementById('getBtn')
+      const clearBtn = document.getElementById('clearBtn')
+
+      setBtn.addEventListener('click', function() {
+        localStore.set(inputKey.value, inputValue.value)
+        sessionStore.set(inputKey.value, inputValue.value)
+        cookieStore.set(inputKey.value, inputValue.value)
+        console.log(`${inputKey.value} 设置成功`)
+      })
+
+      getBtn.addEventListener('click', function() {
+        console.log('local:', localStore.get(inputKey.value))
+        console.log('session:', sessionStore.get(inputKey.value))
+        console.log('cookie:', cookieStore.get(inputKey.value))
+      })
+
+      clearBtn.addEventListener('click', function() {
+        localStore.clear()
+        sessionStore.clear()
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  </script>
 </body>
 
 </html>

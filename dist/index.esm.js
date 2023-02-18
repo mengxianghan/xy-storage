@@ -277,7 +277,7 @@ var Storage = /*#__PURE__*/function () {
           // 有效期为数字
           if (isNumber(expires)) {
             date = new Date();
-            date.setDate(date.getTime() + expires);
+            date.setDate(date.getDate() + expires);
             exp = new Date(date);
           } // 有效期为日期对象
 
@@ -287,6 +287,7 @@ var Storage = /*#__PURE__*/function () {
           }
         }
 
+        console.log("".concat(_classPrivateFieldGet(this, _opts).name, " exp"), exp);
         value = JSON.stringify({
           value: value,
           expires: exp
