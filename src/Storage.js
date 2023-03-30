@@ -40,8 +40,6 @@ export default class Storage {
                 }
             }
 
-            console.log(`${this.#opts.name} exp`, exp)
-
             value = JSON.stringify({
                 value,
                 expires: exp,
