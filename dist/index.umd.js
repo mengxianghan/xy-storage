@@ -295,7 +295,6 @@
             }
           }
 
-          console.log("".concat(_classPrivateFieldGet(this, _opts).name, " exp"), exp);
           value = JSON.stringify({
             value: value,
             expires: exp
