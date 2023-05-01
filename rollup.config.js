@@ -7,16 +7,16 @@ export default {
     input: 'src/main.js',
     output: [
         {
-            file: 'dist/index.esm.js',
+            file: 'dist/es/index.js',
             format: 'esm',
         },
         {
-            file: 'dist/index.esm.min.js',
+            file: 'dist/es/index.min.js',
             format: 'esm',
             plugins: [terser()],
         },
         {
-            file: 'dist/index.umd.js',
+            file: 'dist/index.js',
             format: 'umd',
             name: 'Storage',
             globals: {
@@ -24,7 +24,7 @@ export default {
             },
         },
         {
-            file: 'dist/index.umd.min.js',
+            file: 'dist/index.min.js',
             format: 'umd',
             name: 'Storage',
             globals: {

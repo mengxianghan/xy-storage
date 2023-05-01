@@ -2,9 +2,9 @@
     "name": "xy-storage",
     "version": "3.0.2",
     "description": "本地缓存解决方案",
-    "main": "dist/index.umd.min.js",
-    "browser": "dist/index.umd.min.js",
-    "module": "dist/index.esm.js",
+    "main": "dist/index.min.js",
+    "browser": "dist/index.min.js",
+    "module": "dist/es/index.js",
     "scripts": {
         "dev": "rollup -c --watch",
         "build": "rollup -c",
