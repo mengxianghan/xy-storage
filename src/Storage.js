@@ -1,5 +1,4 @@
-import { isNumber, isDate, isCookie } from './utils'
-
+import { isNumber, isDate, isCookie } from './utils/is'
 import Cookies from 'js-cookie'
 
 export default class Storage {
@@ -17,11 +16,17 @@ export default class Storage {
         this.#storage = this.#getStorage(this.#opts.name)
     }
 
-    set(key, value, attrs = null) {
+    /**
+     * 设置缓存
+     * @param {string} key
+     * @param {*} value
+     * @param {object} attrs
+     */
+    setItem(key, value, attrs = null) {
         attrs = { ...(this.#opts?.attrs ?? {}), ...(attrs ?? {}) }
 
         if (isCookie(this.#opts.name)) {
-            this.#storage.set(this.#getKey(key), JSON.stringify({ value }), attrs)
+            this.#storage.set(this.#generateKey(key), JSON.stringify({ value }), attrs)
         } else {
             let { expires } = attrs
             let date = null
@@ -45,15 +50,21 @@ export default class Storage {
                 expires: exp,
             })
 
-            this.#storage.setItem(this.#getKey(key), value)
+            this.#storage.setItem(this.#generateKey(key), value)
         }
     }
 
-    get(key, def = null) {
+    /**
+     * 获取
+     * @param {string} key
+     * @param {*} def
+     * @returns
+     */
+    getItem(key, def = null) {
         let data
 
         if (isCookie(this.#opts.name)) {
-            data = this.#storage.get(this.#getKey(key))
+            data = this.#storage.get(this.#generateKey(key))
 
             if ('' !== data && 'undefined' !== typeof data) {
                 return JSON.parse(data)?.value ?? def
@@ -61,7 +72,7 @@ export default class Storage {
                 return def
             }
         } else {
-            data = JSON.parse(this.#storage.getItem(this.#getKey(key)) || '{}')
+            data = JSON.parse(this.#storage.get(this.#generateKey(key)) || '{}')
 
             // 永久有效
             if (null === data?.expires || new Date(data?.expires).getTime() >= new Date().getTime()) {
@@ -69,21 +80,31 @@ export default class Storage {
             }
 
             // 已失效，执行清理
-            this.remove(key)
+            this.removeItem(key)
 
             // 返回默认值
             return def
         }
     }
 
-    remove(key, attrs = null) {
+    /**
+     * 移除
+     * @param {string} key
+     * @param {object} attrs
+     * @returns
+     */
+    removeItem(key, attrs = null) {
         if (isCookie(this.#opts.name)) {
-            return this.#storage.remove(this.#getKey(key), { ...(this.#opts?.attrs ?? {}), ...(attrs ?? {}) })
+            return this.#storage.remove(this.#generateKey(key), { ...(this.#opts?.attrs ?? {}), ...(attrs ?? {}) })
         } else {
-            return this.#storage.removeItem(this.#getKey(key))
+            return this.#storage.removeItem(this.#generateKey(key))
         }
     }
 
+    /**
+     * 清除所有
+     * @returns
+     */
     clear() {
         if (isCookie(this.#opts.name)) {
             console.error('Cookies do not support clear')
@@ -121,7 +142,12 @@ export default class Storage {
         return storages.get(name)
     }
 
-    #getKey(key) {
+    /**
+     * 生成 key
+     * @param {string} key
+     * @returns
+     */
+    #generateKey(key) {
         return `${this.#opts.namespace}${key}`
     }
 }

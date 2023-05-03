@@ -3,8 +3,10 @@ import { terser } from 'rollup-plugin-terser'
 import babel from '@rollup/plugin-babel'
 import cleaner from 'rollup-plugin-cleaner'
 
+const name = 'XYStorage'
+
 export default {
-    input: 'src/main.js',
+    input: 'src/index.js',
     output: [
         {
             file: 'dist/es/index.js',
@@ -18,18 +20,14 @@ export default {
         {
             file: 'dist/index.js',
             format: 'umd',
-            name: 'Storage',
-            globals: {
-                'js-cookie': 'Cookies',
-            },
+            name,
+            globals: { 'js-cookie': 'Cookies' },
         },
         {
             file: 'dist/index.min.js',
             format: 'umd',
-            name: 'Storage',
-            globals: {
-                'js-cookie': 'Cookies',
-            },
+            name,
+            globals: { 'js-cookie': 'Cookies' },
             plugins: [terser()],
         },
     ],
