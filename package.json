@@ -1,6 +1,6 @@
 {
     "name": "xy-storage",
-    "version": "3.0.2",
+    "version": "3.1.0",
     "description": "本地缓存解决方案",
     "main": "src/index.js",
     "browser": "dist/index.min.js",
