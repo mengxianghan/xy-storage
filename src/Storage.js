@@ -72,7 +72,7 @@ export default class Storage {
                 return def
             }
         } else {
-            data = JSON.parse(this.#storage.get(this.#generateKey(key)) || '{}')
+            data = JSON.parse(this.#storage.getItem(this.#generateKey(key)) || '{}')
 
             // 永久有效
             if (null === data?.expires || new Date(data?.expires).getTime() >= new Date().getTime()) {
@@ -107,7 +107,7 @@ export default class Storage {
      */
     clear() {
         if (isCookie(this.#opts.name)) {
-            console.error('Cookies do not support clear')
+            console.error('Cookies do not support the clear method')
             return
         }
 
@@ -129,7 +129,7 @@ export default class Storage {
         }
 
         for (const key in keys) {
-            this.remove(keys[key])
+            this.removeItem(keys[key])
         }
     }
 
