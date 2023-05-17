@@ -14,6 +14,7 @@
         "type": "git",
         "url": "https://github.com/mengxianghan/xy-storage.git"
     },
+    "homepage": "http://xy-admin-docs.xuanyunet.com/npm/xy-storage.html",
     "keywords": [
         "storage",
         "localStorage",
