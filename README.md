@@ -1,87 +1,219 @@
-# XYStorage 本地缓存
+# xy-storage
 
 基于 `localStoage` `sessionStorage` `js-cookie` 的本地缓存
 
 ## 安装
 
-使用 npm：
+如果使用 `cookie`，需要安装 `js-cookie`
+
+1. NPM 方式（推荐）
 
 ```shell
-npm install js-cookie xy-storage -S
+pnpm add xy-storage js-cookie
 ```
 
-使用 jsDelivr CDN：
+2. CDN 方式
 
 ```html
-
-<script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/xy-storage/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xy-storage/dist/index.global.js"></script>
 ```
 
-## 示例
+## 使用方法
 
-### 基础用法
+### 1. 导入函数
 
-```js
-import XYStorage from "xy-storage";
-
-const options = {};
-
-const storage = {
-    local: new XYStorage({
-        ...options,
-        name: "local"
-    }),
-    session: new XYStorage({
-        ...options,
-        name: "session"
-    }),
-    cookie: new XYStorage({
-        ...options,
-        name: "cookie"
-    })
-};
-
-storage.local.setItem(key, value);
-
-storage.local.getItem(key);
-
-storage.local.removeItem(key);
-
-storage.local.clear();
-
+```typescript
+import {
+  createCookie, 
+  createLocalStorage, 
+  createSessionStorage
+} from "xy-storage";
 ```
 
-## API
+### 2. 创建实例
 
-### 参数
+```typescript
+const cookie = createCookie({
+  namespace: 'example_',
+  attrs: {
+    expires: 7,
+    path: '',
+    domain: 'example.com',
+    sameSite: 'strict',
+  }
+})
 
-| 属性        | 说明                    | 类型                          | 默认值     |
-|:----------|:----------------------|:----------------------------|:--------|
-| namespace | 命名空间，添加到 `key` 前      | `string`                    | `-`     |
-| name      | 储存方式                  | `string`                    | `local` |
-| value     | 储存内容                  | `string` `object` `boolean` | `-`     |
-| default   | 未获取到值时的返回值            | `string` `object` `boolean` | `null`  |
-| attrs     | 属性，详见 [attrs](#attrs) | `object`                    | `-`     |
+const local = createLocalStorage({
+  namespace: 'example_',
+  attrs: {
+    expires: 7,
+  }
+})
 
-#### Attrs
+const session = createSessionStorage({
+  namespace: 'example_'
+})
+```
 
-| 名称      | 说明                      | 适用于              | 类型              | 默认值     |
-|:--------|:------------------------|------------------|:----------------|:--------|
-| expires | 有效期。类型为 `number` 时，单位为天 | `local` `cookie` | `number` `Date` | `-`     |
-| path    | 储存路径                    | `cookie`         | `string`        | `-`     |
-| domain  | 域名                      | `cookie`         | `string`        | `-`     |
-| secure  | 是否需要安全协议                | `cookie`         | `boolean`       | `false` |
+### 3. 使用
+
+#### setItem
+
+设置缓存
+
+```typescript
+cookie.setItem(
+  'test',
+  1,
+  {
+    expires: 7,
+    domain: 'example.com',
+  }
+)
+
+local.setItem(
+  'test', 
+  2,
+  {
+    expires: 7,
+  }
+)
+
+session.setItem('test', 3)
+```
+
+#### getItem
+
+获取缓存
+
+```typescript
+cookie.getItem('test') // 1
+
+local.getItem('test') // 2
+
+session.getItem('test') // 3
+```
+
+#### removeItem
+
+删除缓存
+
+```typescript
+cookie.removeItem('test')
+
+local.removeItem('test')
+
+session.removeItem('test')
+```
+
+#### clear
+
+清空缓存，`cookie` 不支持 `clear` 方法
+
+```typescript
+local.clear()
+
+session.clear()
+```
+
+## API 文档
+
+### 创建函数
+
+#### createCookie
+
+```typescript
+declare function createCookie(
+  options: CookieOptions,
+)
+```
+
+- options: 配置
+  - namespace: 命名空间
+  - attrs: 属性
+    - expires: 过期时间
+    - path: 路径
+    - domain: 域
+    - sameSite: 同域
+- 更多参数，请查看 [js-cookie](https://www.npmjs.com/package/js-cookie)
+
+#### createLocalStorage
+
+```typescript
+declare function createLocalStorage(
+  options: LocalStorageOptions
+)
+```
+
+- options: 配置
+  - namespace: 命名空间
+  - attrs: 属性
+    - expires: 过期时间
+
+#### createSessionStorage
+
+```typescript
+declare function createSessionStorage(
+  options: SessionStorageOptions
+)
+```
+
+- options: 配置
+    - namespace: 命名空间
+    - attrs: 属性
+        - expires: 过期时间
 
 ### 方法
 
-setItem(key[, attrs])
+#### setItem
+```text
+setItem(
+  name: string,
+  value: any,
+  attrs?: CookieAttrs | WebStorageAttrs
+)
+```
+- name: 键
+- value: 值
+- attrs: 属性，可选
 
-getItem(key[, def])
+#### getItem
 
-removeItem(key)
+```text
+getItem(
+  name: string,
+  defaultValue?: any
+): any
+```
+- name: 键
+- defaultValue: 未获取到值时的返回值，可选
 
+#### removeItem
+```text
+removeItem(name: string)
+```
+- name: 键
+
+#### clear
+```text
 clear()
+```
+删除所有缓存，仅适用于 `local` 和 `session`
+
+## 类型定义
+
+```typescript
+import type {
+  BaseStorageOptions, 
+  CookieAttrs, 
+  CookieOptions, 
+  LocalStorageOptions, 
+  SessionStorageOptions, 
+  WebStorageAttrs, 
+  WebStorageOptions
+} from 'xy-storage'
+```
 
 ## 依赖
 
@@ -94,3 +226,4 @@ clear()
 [sessionStorage](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage)
 
 [localStorage](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage)
+

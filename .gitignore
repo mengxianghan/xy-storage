@@ -1,4 +1,4 @@
-/node_modules
-
-.idea
+node_modules
+dist
+pnpm-lock.yaml
 .DS_Store
